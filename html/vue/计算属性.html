@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="bue"></div>
+            姓：<input type="text" v-model="firstName"></input></br></br>
+            名：<input type="text" v-model="secondName"></input></br></br>
+            全名：<span>很好{{fullName}}</span>
+        </div>
+    </body>
+    <script type="text/javascript">
+         const vm = new Vue({
+            el:'#bue',
+            data:{
+                firstName:'张',
+                secondName:'三'
+            },
+            computed:{
+                fullName:{
+                    get(){
+                        console.log('get被调用了')
+                    return this.firstName + '-' + secondName
+                },
+                set(value){
+                    console.log('set',value)
+                    张-三
+                    李-四
+                }
+            }
+                
+            }
+
+        })
+        Vue.config.productionTip = false; // 以阻止 vue 在启动时生成生产提示。
+       
+    </script>
+</head>
+</html>
