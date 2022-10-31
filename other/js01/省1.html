@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script>
+            function load(){
+                var sheng = new Array("陕西省","江苏省","江西省");
+                for(var i = 0; i < sheng.length; i++){
+                    var vs = document.getElementById("S");
+                    var vsheng = new Option(sheng[i],sheng[i]);
+                    vs.add(vsheng);
+                }
+            }
+        </script>
+    </head>
+    <body onload="load()">
+        <select id="S">65
+            <option >请输入省</option>
+        </select>
+        <select>
+            <option value="">请输入市</option>
+        </select>
+        <select>
+            <option value="">请输入区</option>
+        </select>
+    </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>Title</title>
+<style>
+
+</style>
+</head>
+		<body onload="myTest()">
+		<div>
+			<select id="sheng" onchange="test()">
+				<option>请输入省</option>
+			</select>
+			<select id="shi" onchange="test1()">
+				<option>请输入市</option>
+			</select>
+			<select id="qu" >
+				<option>请输入区</option>
+			</select>
+		</div>
+</body>
+<script>
+		var asheng = new Array("陕西省","江西省","河北省","甘肃省");
+		var aa = document.getElementById("sheng");
+		function myTest(){
+			for(var i = 0; i<asheng.length; i++){
+				var cc = new Option(asheng[i],asheng[i])
+				aa.add(cc);
+			}
+		}
+		var shi1 = new Array("西安市","宝鸡市","商洛市","咸阳市");
+		var shi2 = new Array("南昌市","九江市","宜春市","赣州市");
+		function test(){
+			var sheng = document.getElementById("sheng");
+			var vv = sheng.value;
+			if(vv == "陕西省"){
+				undateCity("shi",shi1);
+			}else if (vv == "江西省"){
+				undateCity("shi",shi2);
+			}
+		}
+		// function undateCity(arr){
+		// 	var ashi = document.getElementById("shi");
+		// 	ashi.innerHTML = "";
+		// 	for(var i = 0;i < arr.length; i++){
+		// 		var co = new Option(arr[i],arr[i]);
+		// 		ashi.add(co);
+		// 	}	
+		// }
+		var qu1 = new Array("未央区","莲湖区","碑林区","雁塔区");
+		var qu2 = new Array("渭滨区","金台区","陈仓区","凤翔区");
+		var qu3 = new Array("东湖区","西湖区","青山湖区","红谷滩区")
+		var qu4 = new Array("濂溪区","浔阳区","柴桑区","庐山区")
+		function test1(){
+			var shi = document.getElementById("shi");
+			var ss = shi.value;
+			if(ss == "西安市"){
+				undateCity("qu",qu1);
+			}else if (ss == "宝鸡市"){
+				undateCity("qu",qu2);
+			}else if (ss == "南昌市"){
+				undateCity("qu",qu3);
+			}else if (ss == "九江市"){
+				undateCity("qu",qu4);
+			}
+		}
+		function undateCity(cid, ww){
+			var aqu = document.getElementById(cid);
+			aqu.innerHTML ="";
+			for(var t = 0;t < ww.length; t++){
+				var yy = new Option(ww[t],ww[t]);
+				aqu.add(yy);
+			}
+		}
+
+
+
+
+</script>
+</html>
+
+
