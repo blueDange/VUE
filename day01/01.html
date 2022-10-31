@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue第一课</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{title}}</h2>
+        <p>动画/催泪/爱情</p>
+        <p>117分钟</p>
+        <p>2020-10-01 00:00 上映</p>
+        <p>9.9分</p>
+        <p>票房:9123124123</p>
+        <button>换一部电影</button>
+    </div>
+
+
+    <script src="../js/vue.js"></script>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#app',
+            data: {
+                title: '疯狂动物城'
+            },
+            method: {}
+        })
+    </script>
+</body>
+
+</html>
