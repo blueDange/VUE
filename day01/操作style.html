@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态修改style</title>
+</head>
+
+<body>
+    <div id="root">
+        <button @click="n++">点我变大</button>
+        <p :style="`font-size: ${n}px`">Hello World</p>
+        <p :style="{'font-size': n+'px'}">Hello World</p>
+        <p :style="{fontSize: n+'px'}">Hello World</p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#root',
+            data: {
+                n: 20
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>

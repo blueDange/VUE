@@ -15,8 +15,10 @@
         <p>117分钟</p>
         <p>2020-10-01 00:00 上映</p>
         <p>9.9分</p>
-        <p>票房:9123124123</p>
-        <button>换一部电影</button>
+        <p>票房:{{(number/100000000).toFixed(2)}}亿</p>
+        <button v-on:click="next">换一部电影</button>
+        <!-- 代参事件对象, 则需要带小括号 -->
+        <button @click="add(1,2)">点我计算结果</button>
     </div>
 
 
@@ -24,13 +26,22 @@
 
     <script type="text/javascript">
         Vue.config.productionTip = false
-        new Vue({
+        const vm = new Vue({
             el: '#app',
             data: {
-                title: '疯狂动物城'
+                title: '疯狂动物城',
+                number: 9123124123
             },
-            method: {}
-        })
+            methods: {
+                next() {
+                    alert(1)
+                    this._data.title = '告别月球'
+                },
+                add(x, y) {
+                    alert(`${x}+${y}=${x + y}`)
+                }
+            }
+        });
     </script>
 </body>
 
