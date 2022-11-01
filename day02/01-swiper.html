@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+    <style>
+        #banner {
+            width: 600px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        #banner>img {
+            width: 100%;
+            transition: 0.4s;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div id="banner">
+            <img :style="{'margin-left': num+'00%'}" src="./banner/1.jpg" alt="">
+            <img src="./banner/2.jpg" alt="">
+            <img src="./banner/3.jpg" alt="">
+            <img src="./banner/4.jpg" alt="">
+        </div>
+        <button @click="next">下一页</button>
+        <button @click="prev">上一页</button>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#root',
+            data: {
+                num: 0
+            },
+            methods: {
+                next() {
+                    if (this.num == -3) {
+                        this.num = 0
+                    } else {
+                        this.num = this.num - 1
+                    }
+
+                },
+                prev() {
+                    if (this.num == 0) {
+                        this.num = -3
+                    } else {
+                        this.num = this.num + 1
+                    }
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
