@@ -1,5 +1,14 @@
 <template>
   <div>
+    <input
+      v-model="keyword"
+      type="text"
+      name=""
+      id=""
+      placeholder="请输入关键字"
+    />
+    <button @click="getMoviesLike">点我模糊查询电影列表</button>
+    <br /><br />
     <button @click="getMovies">点我加载电影信息</button>
     <table style="width: 1200px; margin: 0 auto">
       <thead>
@@ -14,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, i) in data.result" :key="item.id">
+        <tr v-for="item in data.result" :key="item.id">
           <td>
             <img :src="item.cover" alt="" width="100px" />
           </td>
@@ -36,9 +45,22 @@ export default {
   data() {
     return {
       data: {},   // 用于绑定电影列表请求的响应结果
+      keyword: ''  // 用于绑定搜索关键字
     }
   },
   methods: {
+    getMoviesLike() {
+      let url = 'https://web.codeboy.com/bmdapi/movie-infos/name'
+      let data = `name=${this.keyword}&page=1&pagesize=10`
+      axios.post(url, data).then(response => {
+        console.log(response)
+        this.data = response.data.data
+      })
+    },
+
+
+
+
     getMovies() {
       // let url = 'https://web.codeboy.com/bmdapi/movie-infos?page=2&pagesize=10 '
       let url = 'https://web.codeboy.com/bmdapi/movie-infos'
