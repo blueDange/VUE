@@ -1,7 +1,8 @@
 <template>
   <div class="my-tag" :style="`background-color: ${color}`">
     <!-- 自定义组件 -->
-    <span>标签内容</span>
+    <!-- 测试组件的插槽 slot -->
+    <slot />
   </div>
 </template>
 
@@ -12,7 +13,9 @@ export default {
     // 在此处定义color属性,并指定属性的默认值
     // 该属性可能会在父组件使用当前组件时重新赋值
     color: {
-      default: '#f03d37'
+      default: '#f03d37',  // 设置属性默认值
+      type: String,
+      required: true,
     }
 
   }

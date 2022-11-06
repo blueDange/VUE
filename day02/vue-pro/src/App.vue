@@ -1,27 +1,25 @@
 <template>
   <div>
-    <my-tag></my-tag>
-    <MyTag></MyTag>
-    <ah-tag></ah-tag>
-    <!-- 如果希望在使用子组件时, 动态修改组件的外观, 则可以通过组件属性向组件传参
-        color属性自定义属性,通过属性可以向my-tag组件传递参数-->
-    <my-tag color="#ddaa22"></my-tag>
-    <my-tag color="blue"></my-tag>
-    <my-tag color="pink"></my-tag>
-    <my-tag color="orange"></my-tag>
-    <my-tag color="skyblue"></my-tag>
-    <my-tag color="black"></my-tag>
+    <!-- 组件式跳转 -->
+    <router-link to="/">首页</router-link>|
+    <router-link to="/slot">插槽页面</router-link>|
+    <router-link to="/axios">导演</router-link>|
+
+    <!-- 编程式跳转 -->
+    <button @click="goto('/SlotName')">跳转到具名插槽页面</button>
+    <router-view />
   </div>
 </template>
 
 <script>
-import MyTag from './components/MyTag.vue'
 export default {
-  components: {
-    MyTag,
-    // 组件名称: 组件对象
-    'ah-tag': MyTag
-  }
+  methods: {
+    goto(path) {  // 该方法用于实现路由跳转.
+      if (this.$route.path == '/SlotName') return;
+      this.$router.push(path)
+
+    }
+  },
 }
 </script>
 
