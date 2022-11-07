@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import MyTag from './components/MyTag.vue'
+import MyTag from '../../../day02/vue-pro/src/components/MyTag.vue'
 export default {
   components: {
     MyTag,
