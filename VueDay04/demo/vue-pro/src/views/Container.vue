@@ -26,7 +26,7 @@
                         >
                     </el-menu>
                 </el-aside>
-                <el-main style="background: pink">
+                <el-main>
                     <router-view />
                 </el-main>
             </el-container>
