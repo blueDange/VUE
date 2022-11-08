@@ -43,6 +43,25 @@ const routes = [
         path: '/container',
         name: 'container',
         component: () => import('../views/Container.vue'),
+		// 路由重定向,若用户直接访问/container,则直接跳转到该路由地址
+		redirect: '/container/button',
+        children: [
+            {
+                path: 'button',
+                name: 'button',
+                component: () => import('../views/Button.vue'),
+            },
+            {
+                path: 'table',
+                name: 'table',
+                component: () => import('../views/Table.vue'),
+            },
+            {
+                path: 'form',
+                name: 'form',
+                component: () => import('../views/Form.vue'),
+            },
+        ],
     },
 ]
 
