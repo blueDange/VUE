@@ -4,3 +4,6 @@
         <router-view />
     </div>
 </template>
+<style>
+/*	不加scoped会对全局生效 */
+</style>

@@ -39,6 +39,11 @@ const routes = [
         name: 'nav',
         component: () => import('../views/Nav.vue'),
     },
+    {
+        path: '/container',
+        name: 'container',
+        component: () => import('../views/Container.vue'),
+    },
 ]
 
 const router = new VueRouter({
