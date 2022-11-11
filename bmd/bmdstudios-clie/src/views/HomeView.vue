@@ -63,6 +63,21 @@
                             <span slot="title">新增导演</span>
                         </el-menu-item>
                     </el-submenu>
+
+                    <el-submenu index="/home/movie">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span slot="title">电影管理</span>
+                        </template>
+                        <el-menu-item index="/home/movie-list">
+                            <i class="el-icon-notebook-2"></i>
+                            <span slot="title">电影列表</span>
+                        </el-menu-item>
+                        <el-menu-item index="/home/movie-add">
+                            <i class="el-icon-plus"></i>
+                            <span slot="title">新增电影</span>
+                        </el-menu-item>
+                    </el-submenu>
                 </el-menu>
             </el-aside>
 
@@ -92,12 +107,12 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isCollapse: false
-    }
-  },
-};
+    data() {
+        return {
+            isCollapse: false,
+        }
+    },
+}
 </script>
 
 <style lang="scss" scoped>
