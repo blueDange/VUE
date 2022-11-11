@@ -25,6 +25,16 @@ const routes = [
                 name: '/home/actor-add',
                 component: () => import('../views/actor/ActorAdd.vue'),
             },
+            {
+                path: 'director-list',
+                name: '/home/director-list',
+                component: () => import('../views/director/DirectorList.vue'),
+            },
+            {
+                path: 'director-add',
+                name: '/home/director-add',
+                component: () => import('../views/director/DirectorAdd.vue'),
+            },
         ],
     },
     {

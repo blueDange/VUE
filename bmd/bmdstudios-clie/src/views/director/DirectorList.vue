@@ -3,8 +3,8 @@
         <!-- 面包屑导航 -->
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>演员列表</el-breadcrumb-item>
-            <el-breadcrumb-item>演员管理</el-breadcrumb-item>
+            <el-breadcrumb-item>导演列表</el-breadcrumb-item>
+            <el-breadcrumb-item>导演管理</el-breadcrumb-item>
         </el-breadcrumb>
         <!-- 分割线 -->
         <el-divider></el-divider>
@@ -18,7 +18,7 @@
             <el-form-item label="姓名">
                 <el-input
                     v-model="form.name"
-                    placeholder="请输入演员姓名"
+                    placeholder="请输入导演姓名"
                     @keyup.native.enter="onSubmit"
                 ></el-input>
             </el-form-item>
@@ -26,15 +26,14 @@
                 <el-button type="primary" @click="onSubmit">查询</el-button>
             </el-form-item>
         </el-form>
-        <el-divider content-position="left"> 演员列表 </el-divider>
+        <el-divider content-position="left"> 导演列表 </el-divider>
 
-        <!-- 演员列表 -->
+        <!-- 导演列表 -->
         <Person
-            v-for="(item, i) in actors"
+            v-for="(item, i) in directors"
             :key="i"
-            :avatar="item.actor_avatar"
-            :name="item.actor_name"
-            @delete="deleteItem(item.id)"
+            :avatar="item.director_avatar"
+            :name="item.director_name"
         ></Person>
     </div>
 </template>
@@ -52,36 +51,25 @@ export default {
       form: {
         name: ''  // 绑定模糊查询的姓名
       },
-      actors: []
+      directors: []
     }
   },
   methods: {
     onSubmit() {
-      let url = 'http://localhost:3010/movie-actors/name'
+      let url = 'http://localhost:3010/movie-directors/name'
       myaxios.post(url, this.form).then(res => {
         console.log(res)
-        this.actors = res.data.data
-      })
-    },
-    deleteItem(id) {
-      console.log(id)
-      // 执行删除业务
-      let url = 'http://localhost:3010/movie-actor/del'
-      myaxios.post(url, { id }).then(res => {
-        if (res.data.code == 200) {
-          this.$message({ message: '删除成功', type: 'success' })
-          this.onSubmit()
-        }
+        this.directors = res.data.data
       })
     }
   },
   //   组件挂载完毕后自动调用
   mounted() {
-    let url = 'http://localhost:3010/movie-actors'
+    let url = 'http://localhost:3010/movie-directors'
     let params = { page: 1, pagesize: 20 }
     myaxios.get(url, params).then(res => {
       console.log(res)
-      this.actors = res.data.data
+      this.directors = res.data.data
     })
   },
 
