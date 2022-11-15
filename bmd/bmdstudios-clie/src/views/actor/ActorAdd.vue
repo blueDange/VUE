@@ -1,13 +1,13 @@
 <template>
     <div>
         <!-- 面包屑导航 -->
-        <el-breadcrumb separator="/">
+        <!-- <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>演员管理</el-breadcrumb-item>
             <el-breadcrumb-item>新增演员</el-breadcrumb-item>
-        </el-breadcrumb>
+        </el-breadcrumb> -->
         <!-- 分割线 -->
-        <el-divider></el-divider>
+        <!-- <el-divider></el-divider> -->
         <el-form
             ref="form"
             :rules="rules"

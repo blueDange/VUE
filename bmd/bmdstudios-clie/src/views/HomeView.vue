@@ -78,6 +78,21 @@
                             <span slot="title">新增电影</span>
                         </el-menu-item>
                     </el-submenu>
+                    <!-- 电影院列表 -->
+                    <el-submenu index="/home/cinema">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span slot="title">电影院管理</span>
+                        </template>
+                        <el-menu-item index="/home/cinema-list">
+                            <i class="el-icon-notebook-2"></i>
+                            <span slot="title">电影院列表</span>
+                        </el-menu-item>
+                        <el-menu-item index="/home/cinema-add">
+                            <i class="el-icon-plus"></i>
+                            <span slot="title">新增电影院</span>
+                        </el-menu-item>
+                    </el-submenu>
                 </el-menu>
             </el-aside>
 
@@ -93,6 +108,19 @@
                         class="el-icon-s-unfold"
                         @click="isCollapse = false"
                     ></i>
+
+                    <!-- 面包屑导航 -->
+                    <el-breadcrumb separator="/" class="breadcrumb">
+                        <el-breadcrumb-item
+                            v-for="item in $route.meta.nav"
+                            :key="item"
+                        >
+                            <router-link :to="{ name: item.path }">{{
+                                item.name
+                            }}</router-link>
+                        </el-breadcrumb-item>
+                    </el-breadcrumb>
+
                     <span>未登录</span>
                 </el-header>
 

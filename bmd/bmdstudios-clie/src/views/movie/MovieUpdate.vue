@@ -1,13 +1,13 @@
 <template>
     <div>
         <!-- 面包屑导航 -->
-        <el-breadcrumb separator="/">
+        <!-- <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>电影管理</el-breadcrumb-item>
             <el-breadcrumb-item>新增电影</el-breadcrumb-item>
-        </el-breadcrumb>
+        </el-breadcrumb> -->
         <!-- 分割线 -->
-        <el-divider></el-divider>
+        <!-- <el-divider></el-divider> -->
         <!-- 新增电影的表单 -->
         <el-form
             ref="form"
@@ -28,8 +28,8 @@
                 </el-upload>
             </el-form-item>
 
-            <el-form-item label="电影类别" prop="categoryId">
-                <el-radio-group v-model="form.categoryId">
+            <el-form-item label="电影类别" prop="category_id">
+                <el-radio-group v-model="form.category_id">
                     <el-radio label="1">热映 </el-radio>
                     <el-radio label="2">待映</el-radio>
                     <el-radio label="3">经典</el-radio>
@@ -50,14 +50,14 @@
                         v-for="item in movieTypes"
                         :key="item.id"
                         :label="item.typename"
-                        :value="item.id"
+                        :value="item.typename"
                     ></el-option>
                 </el-select>
             </el-form-item>
 
-            <el-form-item label="电影主演" prop="starActor">
+            <el-form-item label="电影主演" prop="star_actor">
                 <el-select
-                    v-model="form.starActor"
+                    v-model="form.star_actor"
                     placeholder="请选择电影主演"
                     multiple
                     remote
@@ -69,7 +69,7 @@
                         v-for="item in actors"
                         :key="item.id"
                         :label="item.actor_name"
-                        :value="item.id"
+                        :value="item.actor_name"
                     ></el-option>
                 </el-select>
             </el-form-item>
@@ -100,7 +100,7 @@
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary" @click="submit">立即新增</el-button>
+                <el-button type="primary" @click="submit">立即修改</el-button>
                 <el-button>返回</el-button>
             </el-form-item>
         </el-form>
@@ -108,7 +108,6 @@
 </template>
 
 <script>
-import myaxios from '@/http/MyAxios'
 export default {
     data() {
         return {
@@ -116,11 +115,11 @@ export default {
             actors: [], // 绑定选择主演列表数据[{id,actor_name,actor_avatar}]
             form: {
                 //封装表点数据
-                categoryId: '1',
+                category_id: '1',
                 cover: '',
                 title: '',
                 type: '',
-                starActor: '',
+                star_actor: '',
                 showingon: '',
                 score: '',
                 description: '',
@@ -128,13 +127,13 @@ export default {
             },
             rules: {
                 // 整理表单验证规则
-                categoryId: [
+                category_id: [
                     { required: true, message: '必填', trigger: 'blur' },
                 ],
                 cover: [{ required: true, message: '必填', trigger: 'blur' }],
                 title: [{ required: true, message: '必填', trigger: 'blur' }],
                 type: [{ required: true, message: '必填', trigger: 'blur' }],
-                starActor: [
+                star_actor: [
                     { required: true, message: '必填', trigger: 'blur' },
                 ],
                 showingon: [
@@ -165,18 +164,17 @@ export default {
             })
         },
 
-        // 提交表单
+        /** 提交表单 */
         submit() {
             // 完成表单验证
             this.$refs['form'].validate((valid) => {
                 if (valid) {
-                    console.log('验证通过', this.form)
-                    // 需要整理每个表单参数字段,使之正确: starActor
+                    // 需要整理每个表单参数字段，使之正确：starActor  type
                     this.form.type = this.form.type.join(' / ')
-                    this.form.starActor = this.form.starActor.join(' / ')
-                    console.log('验证通过:', this.form)
-                    // 发送请求,添加新电影到数据库
-                    this.$http.movieApi.add(this.form).then((res) => {
+                    this.form.star_actor = this.form.star_actor.join(' / ')
+                    console.log('验证通过：', this.form)
+                    // 发送请求，添加新电影到数据库
+                    this.$http.movieApi.update(this.form).then((res) => {
                         console.log('新增电影', res)
                         if (res.data.code == 200) {
                             this.$message({
@@ -204,6 +202,15 @@ export default {
         let id = this.$route.params.id
         this.$http.movieApi.queryById({ id }).then((res) => {
             console.log('通过ID查询电影详情', res)
+            this.form = res.data.data
+            // this.form 中需要修改一些字段的值的类型  实现表单的回填
+            // this.from.category_id 修改为字符串
+            this.form.category_id = this.form.category_id + ''
+            // this.form.star_actor 修改 '主演/主演/主演' 为数组
+            this.form.star_actor = this.form.star_actor.split('/\s*[／\/]\s*/')
+
+            // this.form.type 修改 '剧情/惊悚' 为数组
+            this.form.type = this.form.type.split('/\s*[／\/]\s*/')
         })
     },
 }

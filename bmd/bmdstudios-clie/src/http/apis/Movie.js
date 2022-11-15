@@ -51,6 +51,15 @@ const movieApi = {
     queryAll(params) {
         return myaxios.get(BMDURL + '/movie-infos', params)
     },
+
+    /**
+     *
+     * @param {Object} params {id:string,}
+     * @returns
+     */
+    update(params) {
+        return myaxios.post(BMDURL + '/movie-info/update', params)
+    },
 }
 
 export default movieApi
