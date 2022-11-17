@@ -23,11 +23,15 @@
             <el-table-column label="操作" width="180px">
                 <template slot-scope="scope">
                     <el-button
-                        @click="loc(scope.row)"
                         size="small"
                         type="success"
                         icon="el-icon-location-information"
                         circle
+                        @click="
+                            $router.push(
+                                `/home/showingonplan-list/${scope.row.id}`
+                            )
+                        "
                     >
                     </el-button>
                     <el-button
@@ -35,6 +39,9 @@
                         type="success"
                         icon="el-icon-data-line"
                         circle
+                        @click="
+                            $router.push(`/home/seat-template/${scope.row.id}`)
+                        "
                     >
                     </el-button>
                     <el-button
@@ -46,8 +53,13 @@
                     <el-button
                         size="small"
                         type="danger"
-                        icon="el-icon-delete"
+                        icon="el-icon-plus"
                         circle
+                        @click="
+                            $router.push(
+                                `/home/showingonplan-add/${scope.row.id}`
+                            )
+                        "
                     ></el-button>
                 </template>
             </el-table-column>

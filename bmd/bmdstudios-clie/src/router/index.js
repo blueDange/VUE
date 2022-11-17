@@ -99,7 +99,7 @@ const routes = [
                 },
             },
             {
-                path: 'showingonplan-add',
+                path: 'showingonplan-add/:room_id',
                 name: '/home/showingonplan-add', // 不重复即可
                 component: () => import('../views/cinema/ShowingonPlanAdd.vue'),
                 meta: {
@@ -111,11 +111,38 @@ const routes = [
                     ],
                 },
             },
+            {
+                path: 'showingonplan-list/:room_id',
+                name: '/home/showingonplan-list', // 不重复即可
+                component: () => import('../views/cinema/ShowingonPlanList'),
+                meta: {
+                    nav: ['电影院管理', '电影院列表', '放映厅列表', '排片管理'],
+                },
+            },
+            {
+                path: 'seat-template/:room_id',
+                name: '/home/seat-template', // 不重复即可
+                component: () =>
+                    import('../views/cinema/CinemaRoomSeatTemplate.vue'),
+                meta: {
+                    nav: [
+                        '电影院管理',
+                        '电影院列表',
+                        '放映厅列表',
+                        '配置座位模板',
+                    ],
+                },
+            },
         ],
     },
     {
         path: '/',
         redirect: '/home/index',
+    },
+    {
+        path: '/user/login',
+        name: '/user/login',
+        component: () => import('../views/user/Login.vue'),
     },
     {
         path: '/about',
