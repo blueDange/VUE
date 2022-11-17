@@ -15,7 +15,7 @@ const routes = [
                 name: '/home/index',
                 component: () => import('../views/Index.vue'),
                 meta: {
-                    nav: { name: '首页', path: '/home/index' },
+                    nav: ['首页'],
                 },
             },
             {
@@ -88,6 +88,27 @@ const routes = [
                 component: () => import('../views/cinema/CinemaAdd.vue'),
                 meta: {
                     nav: ['电影院管理', '新增电影院'],
+                },
+            },
+            {
+                path: 'cinema-room-list/:cinema_id',
+                name: '/home/cinema-room-list', // 不重复即可
+                component: () => import('../views/cinema/CinemaRoomList.vue'),
+                meta: {
+                    nav: ['电影院管理', '电影院列表', '放映厅列表'],
+                },
+            },
+            {
+                path: 'showingonplan-add',
+                name: '/home/showingonplan-add', // 不重复即可
+                component: () => import('../views/cinema/ShowingonPlanAdd.vue'),
+                meta: {
+                    nav: [
+                        '电影院管理',
+                        '电影院列表',
+                        '放映厅列表',
+                        '新增排片计划',
+                    ],
                 },
             },
         ],

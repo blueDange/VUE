@@ -115,9 +115,7 @@
                             v-for="item in $route.meta.nav"
                             :key="item"
                         >
-                            <router-link :to="{ name: item.path }">{{
-                                item.name
-                            }}</router-link>
+                            {{ item }}
                         </el-breadcrumb-item>
                     </el-breadcrumb>
 
@@ -144,6 +142,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.breadcrumb {
+    margin-left: 20px;
+    margin-top: -2px;
+    display: flex;
+    flex: 1;
+}
 .header {
     display: flex;
     align-items: center;

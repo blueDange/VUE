@@ -1,147 +1,132 @@
 <template>
     <div>
-        <el-form ref="form" :model="form" label-width="100px" :rules="rules">
-            <el-form-item label="电影院名称" prop="cinema_name">
-                <el-input v-model="form.cinema_name"></el-input>
-            </el-form-item>
+        <div
+            id="container"
+            style="width: 100%; height: 250px; border: 1px solid black"
+        ></div>
 
-            <el-form-item label="选择位置">
-                <div
-                    id="container"
-                    style="width: 100%; height: 200px; border: 1px solid black"
-                ></div>
-            </el-form-item>
+        <el-table :data="cinemas">
+            <el-table-column
+                header-align="center"
+                align="center"
+                prop="cinema_name"
+                label="影院名称"
+            >
+            </el-table-column>
 
-            <el-form-item label="详细地址" prop="address">
-                <el-input v-model="form.address"></el-input>
-            </el-form-item>
+            <el-table-column
+                header-align="center"
+                align="center"
+                prop="cinema_name"
+                label="影院地址"
+            >
+            </el-table-column>
 
-            <el-form-item label="省份" prop="province">
-                <el-input v-model="form.province"></el-input>
-            </el-form-item>
+            <el-table-column
+                header-align="center"
+                align="center"
+                prop="cinema_name"
+                label="影院位置"
+            >
+                <template slot-scope="scope">
+                    {{ scope.row.province }} {{ scope.row.city }}
+                </template>
+            </el-table-column>
 
-            <el-form-item label="城市" prop="city">
-                <el-input v-model="form.city"></el-input>
-            </el-form-item>
-
-            <el-form-item label="地区" prop="district">
-                <el-input v-model="form.district"></el-input>
-            </el-form-item>
-
-            <el-form-item label="经度" prop="longitude">
-                <el-input v-model="form.longitude"></el-input>
-            </el-form-item>
-
-            <el-form-item label="纬度" prop="latitude">
-                <el-input v-model="form.latitude"></el-input>
-            </el-form-item>
-
-            <el-form-item label="电影院标签">
-                <el-select v-model="form.tags" placeholder="请选择电影院">
-                    <el-option label="4k" value="4k"></el-option>
-                    <el-option label="3d" value="3d"></el-option>
-                </el-select>
-            </el-form-item>
-
-            <el-form-item>
-                <el-button type="primary">新增电影院</el-button>
-            </el-form-item>
-        </el-form>
+            <el-table-column
+                header-align="center"
+                align="center"
+                label="操作"
+                width="180px"
+            >
+                <template slot-scope="scope">
+                    <el-button
+                        size="small"
+                        type="success"
+                        icon="el-icon-user"
+                        @click="loc(scope.row)"
+                        circle
+                    ></el-button>
+                    <el-button
+                        size="small"
+                        type="info"
+                        icon="el-icon-picture-outline"
+                        @click="
+                            $router.push(
+                                `/home/cinema-room-list/${scope.row.id}`
+                            )
+                        "
+                        circle
+                    ></el-button>
+                    <el-button
+                        size="small"
+                        type="warning"
+                        icon="el-icon-star-off"
+                        circle
+                        @click="
+                            $router.push(`/home/movie-update/${scope.row.id}`)
+                        "
+                    ></el-button>
+                    <el-button
+                        @click="delItem(scope.row.id)"
+                        size="small"
+                        type="danger"
+                        icon="el-icon-delete"
+                        circle
+                    ></el-button>
+                </template>
+            </el-table-column>
+        </el-table>
     </div>
 </template>
 
 <script>
 import AMapLoader from '@amap/amap-jsapi-loader'
-
 export default {
     data() {
         return {
-            map: null, // 保存地图对象
-            marker: null, // 当前选中的坐标点
-            form: {
-                cinema_name: '',
-                province: '',
-                address: '',
-                city: '',
-                tags: '',
-                latitude: '',
-                longitude: '',
-                district: '',
-            },
-            rules: {
-                cinema_name: [
-                    { required: true, message: '必填', trigger: 'blur' },
-                ],
-                longitude: [
-                    { required: true, message: '必填', trigger: 'blur' },
-                ],
-                province: [
-                    { required: true, message: '必填', trigger: 'blur' },
-                ],
-                address: [{ required: true, message: '必填', trigger: 'blur' }],
-                city: [{ required: true, message: '必填', trigger: 'blur' }],
-                tags: [{ required: true, message: '必填', trigger: 'blur' }],
-                latitude: [
-                    { required: true, message: '必填', trigger: 'blur' },
-                ],
-                district: [
-                    { required: true, message: '必填', trigger: 'blur' },
-                ],
-            },
+            map: null,
+            cinemas: [],
         }
+    },
+    methods: {
+        delItem(id) {
+            console.log('待删除电影的ID', +id)
+            // 弹出确认删除对话框
+            this.$confirm('该操作将永久删除电影,是否继续', '提示', {
+                type: 'warning',
+            })
+        },
+
+        // 点击定位按钮，需要将地图设置为当前选中影院的位置
+        loc(cinema) {
+            console.log(cinema)
+            let { longitude, latitude } = cinema
+            this.map.setCenter([longitude, latitude])
+            this.map.setZoom(18)
+            // 显示标记
+        },
     },
 
     mounted() {
-        window._AMapSecurityConfig = {
-            securityJsCode: 'b22e9543a7f4fe9b21bdf605df417629',
-        }
-
-        AMapLoader.load({
-            key: 'e5fc8ab5445cc18255d9d6f4268913c8	', // 申请好的Web端开发者Key，首次调用 load 时必填
-            version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-            plugins: ['AMap.Geocoder'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+        // 加载所有的电影院
+        this.$http.cinemaApi.list().then((res) => {
+            console.log('影院列表', res)
+            this.cinemas = res.data.data
         })
-            .then((AMap) => {
-                this.map = new AMap.Map('container')
 
-                this.map.setZoom(13)
-                this.map.on('click', (ev) => {
-                    let { lng, lat } = ev.lnglat
-                    console.log({ lng, lat })
-                    // 添加一个点标记
-                    if (this.marker) {
-                    } else {
-                        this.marker = new AMap.Marker({
-                            position: [lng, lat],
-                        })
-                        this.map.add(this.marker)
-                    }
-                    // 通过该经纬度,获取对应的详细位置字符串描述
-                    // 需要访问高德地图的web服务
-                    this.getAddress(AMap, [lng, lat])
-                })
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-    },
-    methods: {
-        // 通过position经纬度,使用AMap.Geocoder插件
-        // 完成逆向地理查询
-        getAddress(AMap, position) {
-            let geocoder = new AMap.Geocoder()
-            geocoder.getAddress(position, (status, result) => {
-                console.log(status, result)
-                // 回填表单字段
-                let r = result.regeocode
-                this.form.address = r.formattedAddress
-                this.form.province = r.addressComponent.province
-                this.form.city = r.addressComponent.city
-                this.form.district = r.addressComponent.district
-                this.form.longitude = position[0]
-                this.form.latitude = position[1]
-            })
-        },
+        // 加载地图内容
+        window._AMapSecurityConfig = {
+            securityJsCode: '0b7fff62bb4d6f79bae15c1a1483e327',
+        }
+        AMapLoader.load({
+            // 申请好的Web端开发者Key，首次调用 load 时必填
+            key: '7bfbe3ab215345f405c23b5eed760ca8',
+            version: '2.0', // 指定要加载的 JSAPI 的版本
+            plugins: [], // 需要使用的的插件列表
+        }).then((AMap) => {
+            this.map = new AMap.Map('container')
+        })
     },
 }
 </script>
