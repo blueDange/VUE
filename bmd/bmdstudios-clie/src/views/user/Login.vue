@@ -27,8 +27,8 @@
                         type="primary"
                         style="width: 100%"
                         @click="onSubmit()"
-                        >登录</el-button
-                    >
+                        >登录
+                    </el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -73,7 +73,40 @@ export default {
     },
 
     methods: {
-        onSubmit() {},
+        onSubmit() {
+            this.$refs['form'].validate((valid) => {
+                if (valid) {
+                    // 验证通过
+                    // 发送登录请求
+                    this.$http.adminApi.login(this.form).then((res) => {
+                        console.log('登录请求结果', res)
+                        if (res.data.code == 200) {
+                            // 跳转到首页
+                            this.$router.push('/home/index')
+                            this.$message({
+                                type: 'success',
+                                message: '登录成功',
+                            })
+                            // 将登录用户存入vuex
+                            this.$store.commit(
+                                'updateUserInfo',
+                                res.data.data.user
+                            )
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: `注意：${res.data.msg}`,
+                            })
+                        }
+                    })
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: '请正确填写表单',
+                    })
+                }
+            })
+        },
     },
 }
 </script>

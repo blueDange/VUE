@@ -14,4 +14,4 @@ const adminApi = {
     },
 }
 
-export default actorApi
+export default adminApi

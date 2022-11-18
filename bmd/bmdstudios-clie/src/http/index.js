@@ -4,6 +4,7 @@ import movieApi from './apis/Movie'
 import cinemaApi from './apis/CinemaApi'
 import cinemaRoomApi from './apis/CinemaRoomApi'
 import showingonPlanApi from './apis/ShowingonPlanApi'
+import adminApi from './apis/AdminApi'
 
 const httpApi = {
     actorApi,
@@ -11,5 +12,6 @@ const httpApi = {
     cinemaApi,
     cinemaRoomApi,
     showingonPlanApi,
+    adminApi,
 }
 export default httpApi

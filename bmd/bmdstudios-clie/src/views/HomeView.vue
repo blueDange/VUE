@@ -36,11 +36,11 @@
                     </el-menu-item>
                     <el-submenu index="/home/actor">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i class="el-icon-user-solid"></i>
                             <span slot="title">演员管理</span>
                         </template>
                         <el-menu-item index="/home/actor-list">
-                            <i class="el-icon-notebook-2"></i>
+                            <i class="el-icon-s-data"></i>
                             <span slot="title">演员列表</span>
                         </el-menu-item>
                         <el-menu-item index="/home/actor-add">
@@ -51,11 +51,11 @@
 
                     <el-submenu index="/home/director">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i class="el-icon-s-custom"></i>
                             <span slot="title">导演管理</span>
                         </template>
                         <el-menu-item index="/home/director-list">
-                            <i class="el-icon-notebook-2"></i>
+                            <i class="el-icon-s-data"></i>
                             <span slot="title">导演列表</span>
                         </el-menu-item>
                         <el-menu-item index="/home/director-add">
@@ -66,11 +66,11 @@
 
                     <el-submenu index="/home/movie">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i class="el-icon-film"></i>
                             <span slot="title">电影管理</span>
                         </template>
                         <el-menu-item index="/home/movie-list">
-                            <i class="el-icon-notebook-2"></i>
+                            <i class="el-icon-s-data"></i>
                             <span slot="title">电影列表</span>
                         </el-menu-item>
                         <el-menu-item index="/home/movie-add">
@@ -78,14 +78,14 @@
                             <span slot="title">新增电影</span>
                         </el-menu-item>
                     </el-submenu>
-                    <!-- 电影院列表 -->
+
                     <el-submenu index="/home/cinema">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i class="el-icon-office-building"></i>
                             <span slot="title">电影院管理</span>
                         </template>
                         <el-menu-item index="/home/cinema-list">
-                            <i class="el-icon-notebook-2"></i>
+                            <i class="el-icon-s-data"></i>
                             <span slot="title">电影院列表</span>
                         </el-menu-item>
                         <el-menu-item index="/home/cinema-add">
@@ -119,11 +119,14 @@
                         </el-breadcrumb-item>
                     </el-breadcrumb>
 
-                    <span>未登录</span>
+                    <!-- <span v-if="$store.state.user">
+                        欢迎：{{ $store.state.user.nickname }}</span> -->
+                    <span v-if="user">{{ user.nickname }}</span>
+                    <span v-else>未登录</span>
                 </el-header>
 
                 <el-main>
-                    <!-- 二级路由动态设置内容 -->
+                    <!-- 二级路由 动态设置内容 -->
                     <router-view />
                 </el-main>
             </el-container>
@@ -138,24 +141,29 @@ export default {
             isCollapse: false,
         }
     },
+
+    computed: {
+        // 计算属性user,返回vuex中保存的user对象
+        user() {
+            return this.$store.state.user
+        },
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-.breadcrumb {
-    margin-left: 20px;
-    margin-top: -2px;
-    display: flex;
-    flex: 1;
-}
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border-bottom: 1px solid #ccc;
 
     i {
         font-size: 1.3em;
+    }
+
+    .breadcrumb {
+        margin-left: 20px;
+        flex: 1;
     }
 }
 .aside::-webkit-scrollbar {
