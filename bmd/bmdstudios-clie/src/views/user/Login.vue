@@ -82,7 +82,7 @@ export default {
                         console.log('登录请求结果', res)
                         if (res.data.code == 200) {
                             // 跳转到首页
-                            this.$router.push('/home/index')
+
                             this.$message({
                                 type: 'success',
                                 message: '登录成功',
@@ -92,6 +92,8 @@ export default {
                                 'updateUserInfo',
                                 res.data.data.user
                             )
+                            this.$store.commit('saveToken', res.data.data.token)
+                            this.$router.push('/home/index')
                         } else {
                             this.$message({
                                 type: 'error',
