@@ -1,3 +1,4 @@
+import store from '@/store'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
@@ -155,6 +156,25 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes,
+})
+
+// 全局前置导航守卫,每当路由跳转到目标组件之前会自动执行箭头函数
+router.beforeEach((to, from, next) => {
+    console.log('from', from)
+    console.log('to', to)
+    // 判断目标地址是否是/user/login
+    if (to.path == '/user/login') {
+        next() // 向后继续执行
+    } else {
+        // 如果不是跳转到登录页面,则需要验证vuex中是否有登录用户
+        if (store.state.user) {
+            // 如果已经登录,可以跳转
+            next()
+        } else {
+            // 如果没有登录,则强制跳转到登录页
+            router.push('/user/login')
+        }
+    }
 })
 
 export default router

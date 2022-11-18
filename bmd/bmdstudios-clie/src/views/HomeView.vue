@@ -119,9 +119,7 @@
                         </el-breadcrumb-item>
                     </el-breadcrumb>
 
-                    <!-- <span v-if="$store.state.user">
-                        欢迎：{{ $store.state.user.nickname }}</span> -->
-                    <span v-if="user">{{ user.nickname }}</span>
+                    <span v-if="user"> 欢迎：{{ user.nickname }}</span>
                     <span v-else>未登录</span>
                 </el-header>
 
@@ -135,18 +133,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
             isCollapse: false,
         }
     },
-
     computed: {
-        // 计算属性user,返回vuex中保存的user对象
-        user() {
-            return this.$store.state.user
-        },
+        //mapState将开放vuex中保存的user对象到当前组件的计算属性中
+        //这样，在当前组件内部,就可以直接使用user来访问vuex中的user
+        ...mapState(['user', 'cart', 'loc']),
+        // 删除写法与下列函数效果一致：
+        /*
+    user(){ return this.$store.state.user },
+    cart(){ return this.$store.state.cart },
+    loc(){ return this.$store.state.loc },
+    */
     },
 }
 </script>
