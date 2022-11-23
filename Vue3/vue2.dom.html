@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>vue2_dom.html</title>
+    </head>
+    <body>
+        <h1 id="h1">1</h1>
+        <button onclick="add()">点击后数字++</button>
+        <script>
+            // 模拟vue2的data中数据的声明语法，通过num来控制页面显示
+            var data = { num: 1 }
+
+            // vue2的方式，监听data对象，一旦data对象中属性变化，更新UI
+            Object.defineProperties(data, {
+                _num: { value: 1, writable: true },
+                num: {
+                    // 如果访问num属性：将执行get方法
+                    get() {
+                        return this._num
+                    },
+                    // 如果修改num属性值：将执行set方法
+                    set(value) {
+                        //data.num=5  value就是5
+                        this._num = value
+                        // vue需要找到页面中所有使用了该变量的地方
+                        // 在此做DOM操作更新UI
+                        h1.innerHTML = value
+                    },
+                },
+            })
+
+            function add() {
+                // 避免操作DOM 直接修改data.num属性 实时更新UI
+                data.num++
+            }
+        </script>
+    </body>
+</html>
