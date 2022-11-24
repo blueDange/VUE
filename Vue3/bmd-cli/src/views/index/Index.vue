@@ -54,12 +54,16 @@ import { ref, onMounted } from 'vue'
 
 // AppHeader广告头
 import AppHeader from '@/components/AppHeader.vue'
+import $http from '@/http/index'
 // MovieItem 电影列表项
 // import MovieItem from '@/components/MovieItem.vue'
 
 // 初始化加载热映类别下的首页电影列表
 onMounted(() => {
-    console.log('Index.vue onMounted...')
+    // 使用http发请求
+    $http.actorApi.queryAll().then((res) => {
+        console.log(res.data)
+    })
 })
 
 // 顶部导航
