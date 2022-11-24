@@ -57,13 +57,14 @@ import AppHeader from '@/components/AppHeader.vue'
 import $http from '@/http/index'
 // MovieItem 电影列表项
 // import MovieItem from '@/components/MovieItem.vue'
-
 // 初始化加载热映类别下的首页电影列表
 onMounted(() => {
     // 使用http发请求
-    $http.actorApi.queryAll().then((res) => {
-        console.log(res.data)
-    })
+    $http.movieApi
+        .queryByCategoryId({ cid: 1, page: 1, pagesize: 20 })
+        .then((res) => {
+            console.log(res)
+        })
 })
 
 // 顶部导航
