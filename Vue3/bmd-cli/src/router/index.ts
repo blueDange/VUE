@@ -6,11 +6,10 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         name: 'home',
         component: HomeView,
-
     },
     {
-      path: '/',
-        redirect: '/home'
+        path: '/',
+        redirect: '/home/index',
     },
     {
         path: '/home',
